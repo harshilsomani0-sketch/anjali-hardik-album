@@ -5,15 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Anjali & Hardik | Wedding Memories</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Great+Vibes&family=Shadows+Into+Light&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Great+Vibes&display=swap" rel="stylesheet">
     
     <style>
         /* --- GLOBAL VARIABLES --- */
         :root {
-            --bg-color: #2c2c2c; /* Dark background like your screenshot */
+            --bg-color: #2c2c2c; /* Dark background */
             --paper-color: #fdf5e6; /* Cream/Ivory */
             --gold: #d4af37;
-            --notepad-line: #aaccff; /* Light blue line for notepad feel */
         }
 
         body {
@@ -27,8 +26,50 @@
             font-family: 'Cinzel', serif;
         }
 
+        /* --- SMOOTH LOADING ANIMATION (MAKHAN JEVI EFFECT) --- */
+        .photo-wrapper {
+            position: relative;
+            background: #e0e0e0; /* Loading placeholder color */
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 8px solid white;
+            box-shadow: 2px 4px 8px rgba(0,0,0,0.2);
+            min-height: 250px; /* Keeps space before image loads */
+        }
+
+        /* Loading Spinner Animation */
+        .photo-wrapper::after {
+            content: "⏳";
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.5;
+            animation: spin 1s infinite linear;
+        }
+        
+        .photo-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0; /* Hidden initially */
+            transition: opacity 1.5s ease-in-out; /* Smooth fade in */
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Class added by JS when image is ready */
+        .photo-wrapper img.loaded {
+            opacity: 1;
+        }
+
+        /* Remove spinner when loaded */
+        .photo-wrapper img.loaded + ::after {
+            display: none;
+        }
+
         /* =========================================
-           MOBILE VIEW (DEFAULT - NOTEPAD STYLE)
+           MOBILE VIEW (NOTEPAD STYLE - SCROLL)
            ========================================= */
         .scene {
             width: 100%;
@@ -37,18 +78,18 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            overflow-y: auto; /* Enable scrolling */
+            overflow-y: auto;
         }
 
         .book {
             width: 100%;
-            max-width: 400px;
+            max-width: 450px;
             display: flex;
             flex-direction: column;
-            gap: 30px; /* Space between photos */
+            gap: 25px;
         }
 
-        /* On Mobile, we treat "Pages" as simple Cards */
+        /* Mobile Card Style */
         .page {
             position: relative;
             width: 100%;
@@ -57,93 +98,76 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.3);
             display: flex;
             flex-direction: column;
-            /* Reset 3D effects for mobile */
-            transform: none !important; 
-            transition: none !important;
-        }
-
-        /* Hide the sophisticated 3D sides on mobile */
-        .front, .back {
-            position: relative;
-            width: 100%;
-            height: auto;
-            transform: none !important;
-            backface-visibility: visible !important;
-            border-bottom: 1px solid #ddd;
-            padding: 15px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            /* Notepad lines background */
+            padding-bottom: 20px;
+            /* Notepad Lines */
             background-image: linear-gradient(#e1e1e1 1px, transparent 1px);
             background-size: 100% 30px;
         }
 
-        /* Spiral Binding Effect for Mobile */
+        /* Spiral Binding Effect */
         .page::before {
             content: '';
             position: absolute;
-            top: -15px;
-            left: 20px;
-            width: 100%;
+            top: -15px; left: 20px; right: 20px;
             height: 20px;
-            background: radial-gradient(circle, #333 30%, transparent 34%) 0 0;
+            background: radial-gradient(circle, #444 30%, transparent 34%) 0 0;
             background-size: 40px 40px;
+            opacity: 0.8;
             z-index: 10;
         }
 
-        .photo-frame {
+        .front, .back {
+            position: relative;
             width: 100%;
-            height: auto;
-            border: 8px solid white;
-            box-shadow: 2px 4px 8px rgba(0,0,0,0.2);
-            transform: rotate(-2deg); /* Artistic tilt */
-            margin-bottom: 10px;
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        .back .photo-frame {
-            transform: rotate(2deg); /* Alternate tilt */
-        }
-
-        /* Mobile specific header/footer */
-        .notepad-header {
+        .mobile-header {
             text-align: center;
             color: var(--gold);
             margin-bottom: 20px;
             font-family: 'Great Vibes', cursive;
-            font-size: 2.5rem;
+            font-size: 2.8rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
 
-        .tap-hint { display: none; } /* Hide "Tap to flip" on mobile */
+        /* Tilted photos for scrapbook feel on mobile */
+        .front .photo-wrapper { transform: rotate(-2deg); width: 95%; }
+        .back .photo-wrapper { transform: rotate(2deg); width: 95%; margin-top: 10px; }
+
+        .tap-hint { display: none; } /* Hide desktop instruction */
 
         /* =========================================
-           DESKTOP VIEW (WINDOWS - 3D BOOK STYLE)
-           Only applies if screen is wider than 768px
+           DESKTOP VIEW (ROYAL BOOK - FLIP)
+           Triggers only on screens wider than 768px
            ========================================= */
         @media (min-width: 768px) {
             body {
                 height: 100vh;
-                overflow: hidden; /* Stop scrolling on desktop */
+                overflow: hidden;
                 display: flex;
                 justify-content: center;
                 align-items: center;
             }
 
             .scene {
-                width: 400px; /* Fixed book size */
-                height: 550px;
+                width: 450px;
+                height: 600px;
                 perspective: 1500px;
                 padding: 0;
-                overflow: visible;
                 display: block;
             }
 
             .book {
                 width: 100%;
                 height: 100%;
+                display: block;
                 position: relative;
                 transform-style: preserve-3d;
-                display: block; /* Reset flex */
             }
 
             .page {
@@ -156,121 +180,219 @@
                 transition: transform 1s cubic-bezier(0.645, 0.045, 0.355, 1);
                 border-radius: 0 10px 10px 0;
                 background: transparent;
+                padding: 0;
                 box-shadow: none;
+                background-image: none; /* No lines on desktop */
             }
+
+            .page::before { display: none; } /* No spiral on desktop */
 
             .front, .back {
                 position: absolute;
                 width: 100%;
                 height: 100%;
-                backface-visibility: hidden !important;
-                background: #fff8e1; /* Cream paper */
+                backface-visibility: hidden;
+                background: #fff8e1;
                 border: 1px solid #d4af37;
-                background-image: none; /* Remove notepad lines */
+                padding: 20px;
+                justify-content: center;
             }
 
-            .front { z-index: 2; transform: rotateY(0deg) !important; }
-            .back { z-index: 1; transform: rotateY(180deg) !important; }
+            .front { z-index: 2; transform: rotateY(0deg); }
+            .back { z-index: 1; transform: rotateY(180deg); background: #faebd7; }
 
-            .page::before { display: none; } /* Remove spiral holes */
+            .mobile-header { display: none; }
+            .tap-hint { 
+                display: block; 
+                margin-top: 15px; 
+                font-size: 0.8rem; 
+                animation: pulse 2s infinite; 
+            }
 
-            .photo-frame {
-                transform: none; /* Remove tilt */
-                max-width: 90%;
-                max-height: 85%;
-                width: auto;
+            /* Reset tilts for clean book look */
+            .front .photo-wrapper, .back .photo-wrapper { 
+                transform: none; 
+                width: 100%; 
                 height: auto;
+                max-height: 85%;
+                border: 5px solid white;
             }
 
-            .notepad-header { display: none; } /* Hide mobile header */
-            .tap-hint { display: block; } /* Show instruction */
-            
-            /* Logic for stacking */
-            .flipped { transform: rotateY(-180deg) !important; }
+            .flipped { transform: rotateY(-180deg); }
         }
+
+        @keyframes pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
 
     <div class="scene">
         
-        <div class="notepad-header">
+        <div class="mobile-header">
             Anjali & Hardik<br>
-            <span style="font-size: 1rem; font-family: 'Cinzel', serif;">Wedding Memories</span>
+            <span style="font-size: 1rem; font-family: 'Cinzel', serif; letter-spacing: 2px;">Wedding Gallery</span>
         </div>
 
         <div class="book" id="album">
             
             <div class="page" id="p1">
                 <div class="front">
-                    <img src="p1.JPG" class="photo-frame" alt="Photo 1">
-                    <div class="tap-hint"><i class="fas fa-hand-pointer"></i> Click to Open</div>
+                    <div class="photo-wrapper">
+                        <img src="p1.JPG" loading="lazy" onload="this.classList.add('loaded')" alt="Photo 1">
+                    </div>
+                    <div class="tap-hint"><i class="fas fa-hand-pointer"></i> Click to Flip</div>
                 </div>
                 <div class="back">
-                    <img src="p2.JPG" class="photo-frame" alt="Photo 2">
+                    <div class="photo-wrapper">
+                        <img src="p2.JPG" loading="lazy" onload="this.classList.add('loaded')" alt="Photo 2">
+                    </div>
                 </div>
             </div>
 
             <div class="page" id="p2">
                 <div class="front">
-                    <img src="p3.JPG" class="photo-frame" alt="Photo 3">
+                    <div class="photo-wrapper">
+                        <img src="p3.JPG" loading="lazy" onload="this.classList.add('loaded')" alt="Photo 3">
+                    </div>
                 </div>
                 <div class="back">
-                    <img src="p4.JPG" class="photo-frame" alt="Photo 4">
+                    <div class="photo-wrapper">
+                        <img src="p4.JPG" loading="lazy" onload="this.classList.add('loaded')" alt="Photo 4">
+                    </div>
                 </div>
             </div>
 
             <div class="page" id="p3">
                 <div class="front">
-                    <img src="p5.JPG" class="photo-frame" alt="Photo 5">
+                    <div class="photo-wrapper">
+                        <img src="p5.JPG" loading="lazy" onload="this.classList.add('loaded')" alt="Photo 5">
+                    </div>
                 </div>
                 <div class="back">
-                    <img src="p6.JPG" class="photo-frame" alt="Photo 6">
+                    <div class="photo-wrapper">
+                        <img src="p6.JPG" loading="lazy" onload="this.classList.add('loaded')" alt="Photo 6">
+                    </div>
                 </div>
             </div>
 
             <div class="page" id="p4">
                 <div class="front">
-                    <img src="p7.jpg" class="photo-frame" alt="Photo 7">
+                    <div class="photo-wrapper">
+                        <img src="p7.JPG" loading="lazy" onload="this.classList.add('loaded')" alt="Photo 7">
+                    </div>
                 </div>
                 <div class="back">
-                    <img src="p8.jpg" class="photo-frame" alt="Photo 8">
+                    <div class="photo-wrapper">
+                        <img src="p8.JPG" loading="lazy" onload="this.classList.add('loaded')" alt="Photo 8">
+                    </div>
                 </div>
             </div>
 
-             <div class="page" id="p5">
+            <div class="page" id="p5">
                 <div class="front">
-                    <img src="p9.jpg" class="photo-frame" alt="Photo 9">
+                    <div class="photo-wrapper">
+                        <img src="p9.JPG" loading="lazy" onload="this.classList.add('loaded')" alt="Photo 9">
+                    </div>
                 </div>
                 <div class="back">
-                    <img src="p10.jpg" class="photo-frame" alt="Photo 10">
+                    <div class="photo-wrapper">
+                        <img src="p10.JPG" loading="lazy" onload="this.classList.add('loaded')" alt="Photo 10">
+                    </div>
                 </div>
             </div>
-            
+
+            <div class="page" id="p6">
+                <div class="front">
+                    <div class="photo-wrapper">
+                        <img src="p11.JPG" loading="lazy" onload="this.classList.add('loaded')" alt="Photo 11">
+                    </div>
+                </div>
+                <div class="back">
+                    <div class="photo-wrapper">
+                        <img src="p12.JPG" loading="lazy" onload="this.classList.add('loaded')" alt="Photo 12">
+                    </div>
+                </div>
             </div>
+
+            <div class="page" id="p7">
+                <div class="front">
+                    <div class="photo-wrapper">
+                        <img src="p13.JPG" loading="lazy" onload="this.classList.add('loaded')" alt="Photo 13">
+                    </div>
+                </div>
+                <div class="back">
+                    <div class="photo-wrapper">
+                        <img src="p14.JPG" loading="lazy" onload="this.classList.add('loaded')" alt="Photo 14">
+                    </div>
+                </div>
+            </div>
+
+            <div class="page" id="p8">
+                <div class="front">
+                    <div class="photo-wrapper">
+                        <img src="p15.JPG" loading="lazy" onload="this.classList.add('loaded')" alt="Photo 15">
+                    </div>
+                </div>
+                <div class="back">
+                    <div class="photo-wrapper">
+                        <img src="p16.JPG" loading="lazy" onload="this.classList.add('loaded')" alt="Photo 16">
+                    </div>
+                </div>
+            </div>
+
+            <div class="page" id="p9">
+                <div class="front">
+                    <div class="photo-wrapper">
+                        <img src="p17.JPG" loading="lazy" onload="this.classList.add('loaded')" alt="Photo 17">
+                    </div>
+                </div>
+                <div class="back">
+                    <div class="photo-wrapper">
+                        <img src="p18.JPG" loading="lazy" onload="this.classList.add('loaded')" alt="Photo 18">
+                    </div>
+                </div>
+            </div>
+
+            <div class="page" id="p10">
+                <div class="front">
+                    <div class="photo-wrapper">
+                        <img src="p19.JPG" loading="lazy" onload="this.classList.add('loaded')" alt="Photo 19">
+                    </div>
+                </div>
+                <div class="back">
+                    <div class="photo-wrapper">
+                        <img src="p20.JPG" loading="lazy" onload="this.classList.add('loaded')" alt="Photo 20">
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </div>
 
     <script>
-        // Only run the 3D flip logic if we are on DESKTOP
+        // Only activate Book Flipping Logic on Desktop
         if (window.matchMedia("(min-width: 768px)").matches) {
             
             const pages = document.querySelectorAll('.page');
             const totalPages = pages.length;
 
-            // Stack order for 3D view
+            // Z-Index Stacking
             pages.forEach((page, index) => {
                 page.style.zIndex = totalPages - index;
             });
 
-            // Flip Logic
+            // Flip Interaction
             pages.forEach((page, index) => {
                 page.addEventListener('click', function() {
                     if (this.classList.contains('flipped')) {
+                        // Go Back
                         this.classList.remove('flipped');
                         setTimeout(() => {
                             this.style.zIndex = totalPages - index;
                         }, 500); 
                     } else {
+                        // Go Forward
                         this.classList.add('flipped');
                         this.style.zIndex = index + 1;
                     }
