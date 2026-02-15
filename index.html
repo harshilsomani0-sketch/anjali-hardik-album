@@ -2,273 +2,281 @@
 <html lang="gu">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Anjali & Hardik | Wedding Album</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anjali & Hardik | Wedding Memories</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Great+Vibes&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Great+Vibes&family=Shadows+Into+Light&display=swap" rel="stylesheet">
     
     <style>
-        /* --- MOBILE FIRST SETTINGS --- */
+        /* --- GLOBAL VARIABLES --- */
         :root {
-            /* Coffee & Cream Theme */
-            --bg-color: #1a120b; 
-            --cover-color: #3e2723;
-            --page-bg: #fff8e1; 
+            --bg-color: #2c2c2c; /* Dark background like your screenshot */
+            --paper-color: #fdf5e6; /* Cream/Ivory */
             --gold: #d4af37;
-            
-            /* Responsive Dimensions for Mobile */
-            --book-width: 85vw;  /* 85% of mobile screen width */
-            --book-height: 60vh; /* 60% of mobile screen height */
-        }
-
-        /* Desktop Adjustments (If opened on Laptop) */
-        @media (min-width: 768px) {
-            :root {
-                --book-width: 420px;
-                --book-height: 580px;
-            }
+            --notepad-line: #aaccff; /* Light blue line for notepad feel */
         }
 
         body {
             margin: 0;
             padding: 0;
             background-color: var(--bg-color);
-            background-image: radial-gradient(#2c1b18 1px, transparent 1px);
+            background-image: 
+                radial-gradient(#3e3e3e 1px, transparent 1px),
+                radial-gradient(#333 1px, transparent 1px);
             background-size: 20px 20px;
-            height: 100vh;
-            width: 100vw;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             font-family: 'Cinzel', serif;
-            overflow: hidden; /* Stop scrolling */
-            touch-action: manipulation; /* Improves touch response */
         }
 
-        /* --- 3D Scene --- */
+        /* =========================================
+           MOBILE VIEW (DEFAULT - NOTEPAD STYLE)
+           ========================================= */
         .scene {
-            width: var(--book-width);
-            height: var(--book-height);
-            perspective: 1500px;
-            position: relative;
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-y: auto; /* Enable scrolling */
         }
 
         .book {
             width: 100%;
-            height: 100%;
-            position: relative;
-            transform-style: preserve-3d;
-            /* Center the book visually on mobile */
-            transition: transform 0.5s ease;
-        }
-
-        /* --- Page Logic --- */
-        .page {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            top: 0; left: 0;
-            transform-origin: left center; /* Spine */
-            transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
-            transform-style: preserve-3d;
-            cursor: pointer;
-            border-radius: 2px 8px 8px 2px;
-            /* Prevent text selection on tap */
-            -webkit-user-select: none;
-            user-select: none;
-        }
-
-        /* Front & Back Sides */
-        .front, .back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
+            max-width: 400px;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 10px; /* Less padding for mobile */
-            box-sizing: border-box;
-            background-color: var(--page-bg);
-            border: 1px solid #d7ccc8;
+            gap: 30px; /* Space between photos */
         }
 
-        .front { z-index: 2; transform: rotateY(0deg); }
-        .back { z-index: 1; transform: rotateY(180deg); background: #fdf5e6; }
-
-        /* --- Cover Styles --- */
-        .cover-front {
-            background: var(--cover-color);
-            color: var(--gold);
-            border: 2px solid var(--gold);
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.6);
-            /* Leather Texture */
-            background-image: repeating-linear-gradient(45deg, #3e2723, #4e342e 2px, #3e2723 4px);
+        /* On Mobile, we treat "Pages" as simple Cards */
+        .page {
+            position: relative;
+            width: 100%;
+            background: var(--paper-color);
+            border-radius: 5px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            /* Reset 3D effects for mobile */
+            transform: none !important; 
+            transition: none !important;
         }
 
-        .cover-back {
-            background: var(--cover-color);
-            background-image: repeating-linear-gradient(45deg, #3e2723, #4e342e 2px, #3e2723 4px);
-            color: var(--gold);
-            transform: rotateY(180deg);
-            border: 2px solid var(--gold);
-        }
-
-        /* --- Mobile-Optimized Photo Frame --- */
-        .photo-frame {
-            width: auto;
+        /* Hide the sophisticated 3D sides on mobile */
+        .front, .back {
+            position: relative;
+            width: 100%;
             height: auto;
-            max-width: 96%; 
-            max-height: 88%;
-            object-fit: contain; /* Perfect fit without cropping */
-            border: 5px solid white;
-            box-shadow: 2px 2px 8px rgba(0,0,0,0.25);
-            background: white;
-            pointer-events: none; /* Touches pass through to page */
+            transform: none !important;
+            backface-visibility: visible !important;
+            border-bottom: 1px solid #ddd;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /* Notepad lines background */
+            background-image: linear-gradient(#e1e1e1 1px, transparent 1px);
+            background-size: 100% 30px;
         }
 
-        /* --- Text Styling --- */
-        .title {
-            font-family: 'Great Vibes', cursive;
-            font-size: 2.5rem; /* Smaller for mobile */
-            margin-bottom: 5px;
-            text-shadow: 1px 1px 2px black;
-        }
-        
-        .subtitle {
-            font-size: 0.8rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            border-top: 1px solid var(--gold);
-            border-bottom: 1px solid var(--gold);
-            padding: 5px 0;
-            margin-bottom: 20px;
-        }
-
-        .tap-hint {
+        /* Spiral Binding Effect for Mobile */
+        .page::before {
+            content: '';
             position: absolute;
-            bottom: 15px;
-            font-size: 0.8rem;
+            top: -15px;
+            left: 20px;
+            width: 100%;
+            height: 20px;
+            background: radial-gradient(circle, #333 30%, transparent 34%) 0 0;
+            background-size: 40px 40px;
+            z-index: 10;
+        }
+
+        .photo-frame {
+            width: 100%;
+            height: auto;
+            border: 8px solid white;
+            box-shadow: 2px 4px 8px rgba(0,0,0,0.2);
+            transform: rotate(-2deg); /* Artistic tilt */
+            margin-bottom: 10px;
+        }
+
+        .back .photo-frame {
+            transform: rotate(2deg); /* Alternate tilt */
+        }
+
+        /* Mobile specific header/footer */
+        .notepad-header {
+            text-align: center;
             color: var(--gold);
-            animation: bounce 2s infinite;
-            background: rgba(0,0,0,0.3);
-            padding: 5px 10px;
-            border-radius: 15px;
+            margin-bottom: 20px;
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.5rem;
         }
 
-        @keyframes bounce { 
-            0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 
-            40% {transform: translateY(-10px);} 
-            60% {transform: translateY(-5px);} 
+        .tap-hint { display: none; } /* Hide "Tap to flip" on mobile */
+
+        /* =========================================
+           DESKTOP VIEW (WINDOWS - 3D BOOK STYLE)
+           Only applies if screen is wider than 768px
+           ========================================= */
+        @media (min-width: 768px) {
+            body {
+                height: 100vh;
+                overflow: hidden; /* Stop scrolling on desktop */
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .scene {
+                width: 400px; /* Fixed book size */
+                height: 550px;
+                perspective: 1500px;
+                padding: 0;
+                overflow: visible;
+                display: block;
+            }
+
+            .book {
+                width: 100%;
+                height: 100%;
+                position: relative;
+                transform-style: preserve-3d;
+                display: block; /* Reset flex */
+            }
+
+            .page {
+                position: absolute;
+                top: 0; left: 0;
+                width: 100%;
+                height: 100%;
+                transform-origin: left center;
+                transform-style: preserve-3d;
+                transition: transform 1s cubic-bezier(0.645, 0.045, 0.355, 1);
+                border-radius: 0 10px 10px 0;
+                background: transparent;
+                box-shadow: none;
+            }
+
+            .front, .back {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                backface-visibility: hidden !important;
+                background: #fff8e1; /* Cream paper */
+                border: 1px solid #d4af37;
+                background-image: none; /* Remove notepad lines */
+            }
+
+            .front { z-index: 2; transform: rotateY(0deg) !important; }
+            .back { z-index: 1; transform: rotateY(180deg) !important; }
+
+            .page::before { display: none; } /* Remove spiral holes */
+
+            .photo-frame {
+                transform: none; /* Remove tilt */
+                max-width: 90%;
+                max-height: 85%;
+                width: auto;
+                height: auto;
+            }
+
+            .notepad-header { display: none; } /* Hide mobile header */
+            .tap-hint { display: block; } /* Show instruction */
+            
+            /* Logic for stacking */
+            .flipped { transform: rotateY(-180deg) !important; }
         }
-
-        .flipped { transform: rotateY(-180deg); }
-
     </style>
 </head>
 <body>
 
     <div class="scene">
+        
+        <div class="notepad-header">
+            Anjali & Hardik<br>
+            <span style="font-size: 1rem; font-family: 'Cinzel', serif;">Wedding Memories</span>
+        </div>
+
         <div class="book" id="album">
             
             <div class="page" id="p1">
-                <div class="front cover-front">
-                    <i class="fas fa-heart" style="font-size: 1.5rem; margin-bottom: 15px;"></i>
-                    <div class="title">Anjali<br>&<br>Hardik</div>
-                    <div class="subtitle">Wedding Album</div>
-                    <div class="tap-hint"><i class="fas fa-hand-pointer"></i> Tap to Open</div>
+                <div class="front">
+                    <img src="p1.JPG" class="photo-frame" alt="Photo 1">
+                    <div class="tap-hint"><i class="fas fa-hand-pointer"></i> Click to Open</div>
                 </div>
                 <div class="back">
-                    <img src="p1.JPG" class="photo-frame" alt="Photo 1">
+                    <img src="p2.JPG" class="photo-frame" alt="Photo 2">
                 </div>
             </div>
 
             <div class="page" id="p2">
-                <div class="front"><img src="p2.JPG" class="photo-frame" alt="Photo 2"></div>
-                <div class="back"><img src="p3.JPG" class="photo-frame" alt="Photo 3"></div>
-            </div>
-
-            <div class="page" id="p3">
-                <div class="front"><img src="p4.JPG" class="photo-frame" alt="Photo 4"></div>
-                <div class="back"><img src="p5.JPG" class="photo-frame" alt="Photo 5"></div>
-            </div>
-
-            <div class="page" id="p4">
-                <div class="front"><img src="p6.JPG" class="photo-frame" alt="Photo 6"></div>
-                <div class="back"><img src="p7.JPG" class="photo-frame" alt="Photo 7"></div>
-            </div>
-
-            <div class="page" id="p5">
-                <div class="front"><img src="p8.jpg" class="photo-frame" alt="Photo 8"></div>
-                <div class="back"><img src="p9.jpg" class="photo-frame" alt="Photo 9"></div>
-            </div>
-
-            <div class="page" id="p6">
-                <div class="front"><img src="p10.jpg" class="photo-frame" alt="Photo 10"></div>
-                <div class="back"><img src="p11.jpg" class="photo-frame" alt="Photo 11"></div>
-            </div>
-
-            <div class="page" id="p7">
-                <div class="front"><img src="p12.jpg" class="photo-frame" alt="Photo 12"></div>
-                <div class="back"><img src="p13.jpg" class="photo-frame" alt="Photo 13"></div>
-            </div>
-
-            <div class="page" id="p8">
-                <div class="front"><img src="p14.jpg" class="photo-frame" alt="Photo 14"></div>
-                <div class="back"><img src="p15.jpg" class="photo-frame" alt="Photo 15"></div>
-            </div>
-
-            <div class="page" id="p9">
-                <div class="front"><img src="p16.jpg" class="photo-frame" alt="Photo 16"></div>
-                <div class="back"><img src="p17.jpg" class="photo-frame" alt="Photo 17"></div>
-            </div>
-
-            <div class="page" id="p10">
-                <div class="front"><img src="p18.jpg" class="photo-frame" alt="Photo 18"></div>
-                <div class="back"><img src="p19.jpg" class="photo-frame" alt="Photo 19"></div>
-            </div>
-
-            <div class="page" id="p11">
-                <div class="front"><img src="p20.jpg" class="photo-frame" alt="Photo 20"></div>
-                <div class="back cover-back">
-                    <div class="title" style="font-size: 2rem;">The End</div>
-                    <p style="font-size: 0.8rem; margin-top: 10px;">Somani Family</p>
+                <div class="front">
+                    <img src="p3.JPG" class="photo-frame" alt="Photo 3">
+                </div>
+                <div class="back">
+                    <img src="p4.JPG" class="photo-frame" alt="Photo 4">
                 </div>
             </div>
 
-        </div>
+            <div class="page" id="p3">
+                <div class="front">
+                    <img src="p5.JPG" class="photo-frame" alt="Photo 5">
+                </div>
+                <div class="back">
+                    <img src="p6.JPG" class="photo-frame" alt="Photo 6">
+                </div>
+            </div>
+
+            <div class="page" id="p4">
+                <div class="front">
+                    <img src="p7.jpg" class="photo-frame" alt="Photo 7">
+                </div>
+                <div class="back">
+                    <img src="p8.jpg" class="photo-frame" alt="Photo 8">
+                </div>
+            </div>
+
+             <div class="page" id="p5">
+                <div class="front">
+                    <img src="p9.jpg" class="photo-frame" alt="Photo 9">
+                </div>
+                <div class="back">
+                    <img src="p10.jpg" class="photo-frame" alt="Photo 10">
+                </div>
+            </div>
+            
+            </div>
     </div>
 
     <script>
-        /* --- Mobile Optimized Logic --- */
-        const pages = document.querySelectorAll('.page');
-        const totalPages = pages.length;
+        // Only run the 3D flip logic if we are on DESKTOP
+        if (window.matchMedia("(min-width: 768px)").matches) {
+            
+            const pages = document.querySelectorAll('.page');
+            const totalPages = pages.length;
 
-        // Set stacking order
-        pages.forEach((page, index) => {
-            page.style.zIndex = totalPages - index;
-        });
-
-        // Handle Taps
-        pages.forEach((page, index) => {
-            page.addEventListener('click', function() {
-                // If it's the last page (Back Cover), don't flip it completely away
-                // (Optional: Keep this check if you want the book to stay "closed" at the end)
-
-                if (this.classList.contains('flipped')) {
-                    this.classList.remove('flipped');
-                    // Delay z-index reset for smooth animation
-                    setTimeout(() => {
-                        this.style.zIndex = totalPages - index;
-                    }, 800); 
-                } else {
-                    this.classList.add('flipped');
-                    this.style.zIndex = index + 1;
-                }
+            // Stack order for 3D view
+            pages.forEach((page, index) => {
+                page.style.zIndex = totalPages - index;
             });
-        });
+
+            // Flip Logic
+            pages.forEach((page, index) => {
+                page.addEventListener('click', function() {
+                    if (this.classList.contains('flipped')) {
+                        this.classList.remove('flipped');
+                        setTimeout(() => {
+                            this.style.zIndex = totalPages - index;
+                        }, 500); 
+                    } else {
+                        this.classList.add('flipped');
+                        this.style.zIndex = index + 1;
+                    }
+                });
+            });
+        }
     </script>
 </body>
-
 </html>
