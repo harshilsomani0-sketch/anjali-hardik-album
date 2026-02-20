@@ -3,55 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anjali & Hardik | Magical Memories</title>
+    <title>Anjali & Hardik | Royal Green Memories</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
     
     <style>
-        /* --- 1. MAGICAL AURORA BACKGROUND --- */
+        /* --- 1. ROYAL DARK GREEN & GOLD BACKGROUND --- */
         body {
             margin: 0;
             padding: 0;
             font-family: 'Montserrat', sans-serif;
-            background: linear-gradient(-45deg, #0b0c10, #1f2833, #2b0b3f, #0b1d28);
+            /* Deep Forest Green to Dark Olive Gradient */
+            background: linear-gradient(-45deg, #021a0c, #09361a, #1b2e10, #041f0f);
             background-size: 400% 400%;
-            animation: auroraBG 15s ease infinite;
+            animation: royalBG 15s ease infinite;
             color: #ffffff;
             overflow-x: hidden;
         }
 
-        @keyframes auroraBG {
+        @keyframes royalBG {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
 
-        /* Floating Light Particles */
+        /* Floating Golden Particles */
         .particles {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background-image: radial-gradient(rgba(255,255,255,0.1) 1px, transparent 1px);
-            background-size: 50px 50px;
+            background-image: radial-gradient(rgba(212, 175, 55, 0.15) 2px, transparent 2px); /* Gold Particles */
+            background-size: 60px 60px;
             pointer-events: none;
             z-index: 0;
+            animation: drift 40s linear infinite;
         }
 
-        /* --- 2. HEADER --- */
+        @keyframes drift {
+            0% { background-position: 0px 0px; }
+            100% { background-position: 600px 600px; }
+        }
+
+        /* --- 2. GOLDEN HEADER --- */
         .header {
             text-align: center;
-            padding: 50px 20px;
+            padding: 50px 20px 20px;
             position: relative;
             z-index: 10;
         }
 
         .header h1 {
             font-family: 'Cinzel', serif;
-            font-size: 3rem;
+            font-size: 3.2rem;
             margin: 0;
-            background: linear-gradient(to right, #d4af37, #ffdf00, #d4af37);
+            /* Bright Gold Text Effect */
+            background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: shine 3s linear infinite;
+            animation: shine 4s linear infinite;
+            text-shadow: 0px 4px 15px rgba(212, 175, 55, 0.2);
         }
 
         @keyframes shine {
@@ -63,7 +72,7 @@
             letter-spacing: 4px;
             text-transform: uppercase;
             font-size: 0.9rem;
-            color: #a8b2d1;
+            color: #d4af37; /* Gold Color */
             margin-top: 10px;
         }
 
@@ -78,39 +87,40 @@
             z-index: 10;
             max-width: 1200px;
             margin: 0 auto;
+            padding-bottom: 80px;
         }
 
         /* The Glass Card */
         .glass-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(4, 30, 15, 0.4); /* Dark Green Tint */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(212, 175, 55, 0.2); /* Subtle Gold Border */
             border-radius: 20px;
             padding: 15px;
             width: 90%;
             max-width: 500px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-            transition: all 0.5s ease;
-            transform: translateY(30px);
-            opacity: 0.5;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateY(40px);
+            opacity: 0.4;
         }
 
-        /* Glowing effect when in center of screen */
+        /* Golden Glowing effect when in center of screen */
         .glass-card.in-view {
             transform: translateY(0) scale(1.02);
             opacity: 1;
-            border: 1px solid rgba(212, 175, 55, 0.5); /* Gold glow */
-            box-shadow: 0 0 30px rgba(212, 175, 55, 0.2);
+            border: 1px solid rgba(212, 175, 55, 0.9); /* Bright Gold Glow */
+            box-shadow: 0 0 35px rgba(212, 175, 55, 0.3), inset 0 0 15px rgba(212, 175, 55, 0.1);
         }
 
         /* The Image inside Glass */
         .img-wrapper {
             width: 100%;
-            border-radius: 15px;
+            border-radius: 12px;
             overflow: hidden;
             position: relative;
-            background: #111; /* Loading color */
+            background: #021a0c; /* Green loading placeholder */
             min-height: 250px;
         }
 
@@ -120,13 +130,13 @@
             object-fit: cover;
             display: block;
             /* The Color Reveal Surprise */
-            filter: grayscale(100%) brightness(0.7); 
+            filter: grayscale(100%) sepia(20%) brightness(0.6); /* Slight vintage dark look before reveal */
             transition: all 1.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         /* When photo comes into view, it turns to FULL COLOR */
         .glass-card.in-view img {
-            filter: grayscale(0%) brightness(1);
+            filter: grayscale(0%) sepia(0%) brightness(1.05); /* Extra bright when revealed */
         }
 
         /* --- DESKTOP VIEW (MASONRY ZIG-ZAG) --- */
@@ -146,7 +156,7 @@
             .glass-card.in-view:nth-child(even) {
                 transform: translateY(50px) scale(1.05);
             }
-            .header h1 { font-size: 5rem; }
+            .header h1 { font-size: 4.5rem; }
         }
     </style>
 </head>
@@ -156,9 +166,9 @@
 
     <div class="header">
         <h1>Anjali & Hardik</h1>
-        <p>A Magical Journey</p>
-        <p style="font-size: 0.7rem; color: #d4af37; margin-top: 20px;">
-            <i class="fas fa-chevron-down" style="animation: bounce 2s infinite;"></i> Scroll to Reveal the Magic
+        <p>A Royal Journey</p>
+        <p style="font-size: 0.75rem; color: #d4af37; margin-top: 25px; opacity: 0.8;">
+            <i class="fas fa-chevron-down" style="animation: bounce 2s infinite;"></i> Scroll Slowly to Reveal the Magic
         </p>
     </div>
 
@@ -295,17 +305,14 @@
             const observerOptions = {
                 root: null,
                 rootMargin: '0px',
-                threshold: 0.4 // Triggers when 40% of the photo is visible
+                threshold: 0.35 // Triggers when 35% of the photo is visible
             };
 
             const cardObserver = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        // Add the 'in-view' class (This triggers the Color Reveal & Golden Glow)
+                        // Add the 'in-view' class (Triggers Color Reveal & Gold Glow)
                         entry.target.classList.add('in-view');
-                    } else {
-                        // Optional: Remove class if you want them to turn B&W again when scrolling away
-                        // entry.target.classList.remove('in-view'); 
                     }
                 });
             }, observerOptions);
