@@ -13,13 +13,12 @@
             margin: 0;
             padding: 0;
             font-family: 'Montserrat', sans-serif;
-            /* Deep Midnight Blue to Royal Navy Gradient */
             background: linear-gradient(-45deg, #020617, #0f172a, #1e1b4b, #0a0f25);
             background-size: 400% 400%;
             animation: starryBG 15s ease infinite;
             color: #ffffff;
             overflow-x: hidden;
-            perspective: 1000px; /* Enables 3D Magic */
+            perspective: 1000px;
         }
 
         @keyframes starryBG {
@@ -28,13 +27,13 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* Floating Diamond Particles */
+        /* Floating Rose Gold Particles */
         .particles {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background-image: 
                 radial-gradient(rgba(255, 255, 255, 0.4) 1px, transparent 2px),
-                radial-gradient(rgba(253, 164, 175, 0.3) 1px, transparent 2px); /* Rose Gold Dust */
+                radial-gradient(rgba(253, 164, 175, 0.3) 1px, transparent 2px);
             background-size: 50px 50px, 80px 80px;
             background-position: 0 0, 25px 25px;
             pointer-events: none;
@@ -47,7 +46,7 @@
             100% { transform: translateY(-100vh); }
         }
 
-        /* --- 2. ROSE GOLD HEADER --- */
+        /* --- 2. HEADER --- */
         .header {
             text-align: center;
             padding: 50px 20px 20px;
@@ -59,7 +58,6 @@
             font-family: 'Cinzel', serif;
             font-size: 3.2rem;
             margin: 0;
-            /* Rose Gold Gradient Text */
             background: linear-gradient(to right, #fecdd3, #fda4af, #ffe4e6, #fda4af, #fecdd3);
             background-size: 200% auto;
             -webkit-background-clip: text;
@@ -76,7 +74,7 @@
             letter-spacing: 5px;
             text-transform: uppercase;
             font-size: 0.9rem;
-            color: #fda4af; /* Rose Gold */
+            color: #fda4af;
             margin-top: 10px;
             font-weight: 300;
         }
@@ -89,7 +87,7 @@
             letter-spacing: 2px;
         }
 
-        /* --- 3. 3D GLASSMORPHISM (THE SURPRISE MAGIC) --- */
+        /* --- 3. AUTO-SET FRAME & GLASSMORPHISM --- */
         .gallery-container {
             display: flex;
             flex-direction: column;
@@ -103,57 +101,57 @@
             padding-bottom: 80px;
         }
 
-        /* The Glass Card */
+        /* Outer Glass Frame */
         .glass-card {
-            background: rgba(15, 23, 42, 0.5); /* Navy Glass Tint */
+            background: rgba(15, 23, 42, 0.5);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(253, 164, 175, 0.15); /* Faint Rose Gold Border */
+            border: 1px solid rgba(253, 164, 175, 0.15);
             border-radius: 20px;
             padding: 15px;
             width: 90%;
             max-width: 500px;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-            
-            /* Initial State (Hidden & Tilted Back) */
             opacity: 0.3;
             transform: translateY(60px) rotateX(15deg) scale(0.9);
-            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Bouncy Magic Effect */
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             transform-style: preserve-3d;
         }
 
-        /* Glowing effect when in center of screen */
         .glass-card.in-view {
             opacity: 1;
-            /* Pop-out Effect */
             transform: translateY(0) rotateX(0deg) scale(1);
-            border: 1px solid rgba(253, 164, 175, 0.8); /* Bright Rose Gold Border */
+            border: 1px solid rgba(253, 164, 175, 0.8);
             box-shadow: 0 0 40px rgba(253, 164, 175, 0.25), inset 0 0 20px rgba(253, 164, 175, 0.1);
         }
 
-        /* The Image inside Glass */
+        /* The Auto-Adjusting Inner Wrapper */
         .img-wrapper {
             width: 100%;
+            height: auto; /* Allow the wrapper to expand/contract based on image height */
             border-radius: 12px;
             overflow: hidden;
             position: relative;
-            background: #020617; 
-            min-height: 250px;
+            background: transparent;
+            /* White Border for the Photo */
+            border: 5px solid #ffffff;
+            box-sizing: border-box;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
 
+        /* Auto-Sizing Image Logic */
         .img-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            /* Initial state: Dark & B&W */
-            filter: grayscale(100%) brightness(0.5); 
+            width: 100%; /* Take full width of the frame */
+            height: auto; /* Calculate exact height automatically based on aspect ratio */
+            object-fit: contain; /* Ensures 100% of the photo is visible without stretching or cropping */
+            display: block; /* Removes weird spacing under images */
+            filter: grayscale(100%) brightness(0.5);
             transition: all 1.5s ease-out;
         }
 
-        /* When photo comes into view, it turns to FULL COLOR */
+        /* Color Reveal on Scroll */
         .glass-card.in-view img {
-            filter: grayscale(0%) brightness(1.05); /* Bright and vivid */
+            filter: grayscale(0%) brightness(1.05);
         }
 
         /* --- DESKTOP VIEW (ZIG-ZAG) --- */
@@ -162,6 +160,7 @@
                 flex-direction: row;
                 flex-wrap: wrap;
                 justify-content: center;
+                align-items: flex-start; /* Important so different heights don't stretch other cards */
             }
             .glass-card {
                 width: 42%;
@@ -221,13 +220,12 @@
             const observerOptions = {
                 root: null,
                 rootMargin: '0px',
-                threshold: 0.35 // Triggers when 35% of the card is visible
+                threshold: 0.35
             };
 
             const cardObserver = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        // Adds the 'in-view' class which triggers the 3D Pop-out, Gold Glow, and Color Reveal
                         entry.target.classList.add('in-view');
                     }
                 });
