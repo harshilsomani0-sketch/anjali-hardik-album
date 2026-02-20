@@ -3,402 +3,318 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anjali & Hardik | Wedding Memories</title>
+    <title>Anjali & Hardik | Magical Memories</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Great+Vibes&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
     
     <style>
-        /* --- GLOBAL VARIABLES --- */
-        :root {
-            --bg-color: #2c2c2c; /* Dark background */
-            --paper-color: #fdf5e6; /* Cream/Ivory */
-            --gold: #d4af37;
-        }
-
+        /* --- 1. MAGICAL AURORA BACKGROUND --- */
         body {
             margin: 0;
             padding: 0;
-            background-color: var(--bg-color);
-            background-image: 
-                radial-gradient(#3e3e3e 1px, transparent 1px),
-                radial-gradient(#333 1px, transparent 1px);
-            background-size: 20px 20px;
-            font-family: 'Cinzel', serif;
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(-45deg, #0b0c10, #1f2833, #2b0b3f, #0b1d28);
+            background-size: 400% 400%;
+            animation: auroraBG 15s ease infinite;
+            color: #ffffff;
+            overflow-x: hidden;
         }
 
-        /* --- SMOOTH LOADING ANIMATION (MAKHAN JEVI EFFECT) --- */
-        .photo-wrapper {
+        @keyframes auroraBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Floating Light Particles */
+        .particles {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: radial-gradient(rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* --- 2. HEADER --- */
+        .header {
+            text-align: center;
+            padding: 50px 20px;
             position: relative;
-            background: #e0e0e0; /* Loading placeholder color */
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border: 8px solid white;
-            box-shadow: 2px 4px 8px rgba(0,0,0,0.2);
-            min-height: 250px; /* Keeps space before image loads */
-        }
-
-        /* Loading Spinner Animation */
-        .photo-wrapper::after {
-            content: "⏳";
-            position: absolute;
-            font-size: 2rem;
-            opacity: 0.5;
-            animation: spin 1s infinite linear;
-        }
-        
-        .photo-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0; /* Hidden initially */
-            transition: opacity 1.5s ease-in-out; /* Smooth fade in */
-            position: relative;
-            z-index: 2;
-        }
-
-        /* Class added by JS when image is ready */
-        .photo-wrapper img.loaded {
-            opacity: 1;
-        }
-
-        /* Remove spinner when loaded */
-        .photo-wrapper img.loaded + ::after {
-            display: none;
-        }
-
-        /* =========================================
-           MOBILE VIEW (NOTEPAD STYLE - SCROLL)
-           ========================================= */
-        .scene {
-            width: 100%;
-            padding: 20px;
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            overflow-y: auto;
-        }
-
-        .book {
-            width: 100%;
-            max-width: 450px;
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-        }
-
-        /* Mobile Card Style */
-        .page {
-            position: relative;
-            width: 100%;
-            background: var(--paper-color);
-            border-radius: 5px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            display: flex;
-            flex-direction: column;
-            padding-bottom: 20px;
-            /* Notepad Lines */
-            background-image: linear-gradient(#e1e1e1 1px, transparent 1px);
-            background-size: 100% 30px;
-        }
-
-        /* Spiral Binding Effect */
-        .page::before {
-            content: '';
-            position: absolute;
-            top: -15px; left: 20px; right: 20px;
-            height: 20px;
-            background: radial-gradient(circle, #444 30%, transparent 34%) 0 0;
-            background-size: 40px 40px;
-            opacity: 0.8;
             z-index: 10;
         }
 
-        .front, .back {
-            position: relative;
-            width: 100%;
-            padding: 20px;
-            box-sizing: border-box;
+        .header h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 3rem;
+            margin: 0;
+            background: linear-gradient(to right, #d4af37, #ffdf00, #d4af37);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 3s linear infinite;
+        }
+
+        @keyframes shine {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+
+        .header p {
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            color: #a8b2d1;
+            margin-top: 10px;
+        }
+
+        /* --- 3. GLASSMORPHISM TIMELINE (THE SURPRISE) --- */
+        .gallery-container {
             display: flex;
             flex-direction: column;
             align-items: center;
+            padding: 20px;
+            gap: 50px;
+            position: relative;
+            z-index: 10;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
-        .mobile-header {
-            text-align: center;
-            color: var(--gold);
-            margin-bottom: 20px;
-            font-family: 'Great Vibes', cursive;
-            font-size: 2.8rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        /* The Glass Card */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 15px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            transition: all 0.5s ease;
+            transform: translateY(30px);
+            opacity: 0.5;
         }
 
-        /* Tilted photos for scrapbook feel on mobile */
-        .front .photo-wrapper { transform: rotate(-2deg); width: 95%; }
-        .back .photo-wrapper { transform: rotate(2deg); width: 95%; margin-top: 10px; }
+        /* Glowing effect when in center of screen */
+        .glass-card.in-view {
+            transform: translateY(0) scale(1.02);
+            opacity: 1;
+            border: 1px solid rgba(212, 175, 55, 0.5); /* Gold glow */
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.2);
+        }
 
-        .tap-hint { display: none; } /* Hide desktop instruction */
+        /* The Image inside Glass */
+        .img-wrapper {
+            width: 100%;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            background: #111; /* Loading color */
+            min-height: 250px;
+        }
 
-        /* =========================================
-           DESKTOP VIEW (ROYAL BOOK - FLIP)
-           Triggers only on screens wider than 768px
-           ========================================= */
+        .img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            /* The Color Reveal Surprise */
+            filter: grayscale(100%) brightness(0.7); 
+            transition: all 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* When photo comes into view, it turns to FULL COLOR */
+        .glass-card.in-view img {
+            filter: grayscale(0%) brightness(1);
+        }
+
+        /* --- DESKTOP VIEW (MASONRY ZIG-ZAG) --- */
         @media (min-width: 768px) {
-            body {
-                height: 100vh;
-                overflow: hidden;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
-
-            .scene {
-                width: 450px;
-                height: 600px;
-                perspective: 1500px;
-                padding: 0;
-                display: block;
-            }
-
-            .book {
-                width: 100%;
-                height: 100%;
-                display: block;
-                position: relative;
-                transform-style: preserve-3d;
-            }
-
-            .page {
-                position: absolute;
-                top: 0; left: 0;
-                width: 100%;
-                height: 100%;
-                transform-origin: left center;
-                transform-style: preserve-3d;
-                transition: transform 1s cubic-bezier(0.645, 0.045, 0.355, 1);
-                border-radius: 0 10px 10px 0;
-                background: transparent;
-                padding: 0;
-                box-shadow: none;
-                background-image: none; /* No lines on desktop */
-            }
-
-            .page::before { display: none; } /* No spiral on desktop */
-
-            .front, .back {
-                position: absolute;
-                width: 100%;
-                height: 100%;
-                backface-visibility: hidden;
-                background: #fff8e1;
-                border: 1px solid #d4af37;
-                padding: 20px;
+            .gallery-container {
+                flex-direction: row;
+                flex-wrap: wrap;
                 justify-content: center;
             }
-
-            .front { z-index: 2; transform: rotateY(0deg); }
-            .back { z-index: 1; transform: rotateY(180deg); background: #faebd7; }
-
-            .mobile-header { display: none; }
-            .tap-hint { 
-                display: block; 
-                margin-top: 15px; 
-                font-size: 0.8rem; 
-                animation: pulse 2s infinite; 
+            .glass-card {
+                width: 40%; /* Two columns */
+                margin-top: 50px;
             }
-
-            /* Reset tilts for clean book look */
-            .front .photo-wrapper, .back .photo-wrapper { 
-                transform: none; 
-                width: 100%; 
-                height: auto;
-                max-height: 85%;
-                border: 5px solid white;
+            .glass-card:nth-child(even) {
+                transform: translateY(80px); /* Zig Zag timeline effect */
             }
-
-            .flipped { transform: rotateY(-180deg); }
+            .glass-card.in-view:nth-child(even) {
+                transform: translateY(50px) scale(1.05);
+            }
+            .header h1 { font-size: 5rem; }
         }
-
-        @keyframes pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
 
-    <div class="scene">
+    <div class="particles"></div>
+
+    <div class="header">
+        <h1>Anjali & Hardik</h1>
+        <p>A Magical Journey</p>
+        <p style="font-size: 0.7rem; color: #d4af37; margin-top: 20px;">
+            <i class="fas fa-chevron-down" style="animation: bounce 2s infinite;"></i> Scroll to Reveal the Magic
+        </p>
+    </div>
+
+    <div class="gallery-container">
         
-        <div class="mobile-header">
-            Anjali & Hardik<br>
-            <span style="font-size: 1rem; font-family: 'Cinzel', serif; letter-spacing: 2px;">Wedding Gallery</span>
+        <div class="glass-card">
+            <div class="img-wrapper">
+                <img src="p1.JPG" loading="lazy" alt="Memory 1">
+            </div>
         </div>
 
-        <div class="book" id="album">
-            
-            <div class="page" id="p1">
-                <div class="front">
-                    <div class="photo-wrapper">
-                        <img src="p1.JPG" loading="lazy" onload="this.classList.add('loaded')" alt="Photo 1">
-                    </div>
-                    <div class="tap-hint"><i class="fas fa-hand-pointer"></i> Click to Flip</div>
-                </div>
-                <div class="back">
-                    <div class="photo-wrapper">
-                        <img src="p2.JPG" loading="lazy" onload="this.classList.add('loaded')" alt="Photo 2">
-                    </div>
-                </div>
+        <div class="glass-card">
+            <div class="img-wrapper">
+                <img src="p2.JPG" loading="lazy" alt="Memory 2">
             </div>
-
-            <div class="page" id="p2">
-                <div class="front">
-                    <div class="photo-wrapper">
-                        <img src="p3.JPG" loading="lazy" onload="this.classList.add('loaded')" alt="Photo 3">
-                    </div>
-                </div>
-                <div class="back">
-                    <div class="photo-wrapper">
-                        <img src="p4.JPG" loading="lazy" onload="this.classList.add('loaded')" alt="Photo 4">
-                    </div>
-                </div>
-            </div>
-
-            <div class="page" id="p3">
-                <div class="front">
-                    <div class="photo-wrapper">
-                        <img src="p5.JPG" loading="lazy" onload="this.classList.add('loaded')" alt="Photo 5">
-                    </div>
-                </div>
-                <div class="back">
-                    <div class="photo-wrapper">
-                        <img src="p6.JPG" loading="lazy" onload="this.classList.add('loaded')" alt="Photo 6">
-                    </div>
-                </div>
-            </div>
-
-            <div class="page" id="p4">
-                <div class="front">
-                    <div class="photo-wrapper">
-                        <img src="p7.JPG" loading="lazy" onload="this.classList.add('loaded')" alt="Photo 7">
-                    </div>
-                </div>
-                <div class="back">
-                    <div class="photo-wrapper">
-                        <img src="p8.JPG" loading="lazy" onload="this.classList.add('loaded')" alt="Photo 8">
-                    </div>
-                </div>
-            </div>
-
-            <div class="page" id="p5">
-                <div class="front">
-                    <div class="photo-wrapper">
-                        <img src="p9.JPG" loading="lazy" onload="this.classList.add('loaded')" alt="Photo 9">
-                    </div>
-                </div>
-                <div class="back">
-                    <div class="photo-wrapper">
-                        <img src="p10.JPG" loading="lazy" onload="this.classList.add('loaded')" alt="Photo 10">
-                    </div>
-                </div>
-            </div>
-
-            <div class="page" id="p6">
-                <div class="front">
-                    <div class="photo-wrapper">
-                        <img src="p11.JPG" loading="lazy" onload="this.classList.add('loaded')" alt="Photo 11">
-                    </div>
-                </div>
-                <div class="back">
-                    <div class="photo-wrapper">
-                        <img src="p12.JPG" loading="lazy" onload="this.classList.add('loaded')" alt="Photo 12">
-                    </div>
-                </div>
-            </div>
-
-            <div class="page" id="p7">
-                <div class="front">
-                    <div class="photo-wrapper">
-                        <img src="p13.JPG" loading="lazy" onload="this.classList.add('loaded')" alt="Photo 13">
-                    </div>
-                </div>
-                <div class="back">
-                    <div class="photo-wrapper">
-                        <img src="p14.JPG" loading="lazy" onload="this.classList.add('loaded')" alt="Photo 14">
-                    </div>
-                </div>
-            </div>
-
-            <div class="page" id="p8">
-                <div class="front">
-                    <div class="photo-wrapper">
-                        <img src="p15.JPG" loading="lazy" onload="this.classList.add('loaded')" alt="Photo 15">
-                    </div>
-                </div>
-                <div class="back">
-                    <div class="photo-wrapper">
-                        <img src="p16.JPG" loading="lazy" onload="this.classList.add('loaded')" alt="Photo 16">
-                    </div>
-                </div>
-            </div>
-
-            <div class="page" id="p9">
-                <div class="front">
-                    <div class="photo-wrapper">
-                        <img src="p17.JPG" loading="lazy" onload="this.classList.add('loaded')" alt="Photo 17">
-                    </div>
-                </div>
-                <div class="back">
-                    <div class="photo-wrapper">
-                        <img src="p18.JPG" loading="lazy" onload="this.classList.add('loaded')" alt="Photo 18">
-                    </div>
-                </div>
-            </div>
-
-            <div class="page" id="p10">
-                <div class="front">
-                    <div class="photo-wrapper">
-                        <img src="p19.JPG" loading="lazy" onload="this.classList.add('loaded')" alt="Photo 19">
-                    </div>
-                </div>
-                <div class="back">
-                    <div class="photo-wrapper">
-                        <img src="p20.JPG" loading="lazy" onload="this.classList.add('loaded')" alt="Photo 20">
-                    </div>
-                </div>
-            </div>
-
         </div>
+
+        <div class="glass-card">
+            <div class="img-wrapper">
+                <img src="p3.JPG" loading="lazy" alt="Memory 3">
+            </div>
+        </div>
+
+        <div class="glass-card">
+            <div class="img-wrapper">
+                <img src="p4.JPG" loading="lazy" alt="Memory 4">
+            </div>
+        </div>
+
+        <div class="glass-card">
+            <div class="img-wrapper">
+                <img src="p5.JPG" loading="lazy" alt="Memory 5">
+            </div>
+        </div>
+
+        <div class="glass-card">
+            <div class="img-wrapper">
+                <img src="p6.JPG" loading="lazy" alt="Memory 6">
+            </div>
+        </div>
+
+        <div class="glass-card">
+            <div class="img-wrapper">
+                <img src="p7.JPG" loading="lazy" alt="Memory 7">
+            </div>
+        </div>
+
+        <div class="glass-card">
+            <div class="img-wrapper">
+                <img src="p8.JPG" loading="lazy" alt="Memory 8">
+            </div>
+        </div>
+
+        <div class="glass-card">
+            <div class="img-wrapper">
+                <img src="p9.JPG" loading="lazy" alt="Memory 9">
+            </div>
+        </div>
+
+        <div class="glass-card">
+            <div class="img-wrapper">
+                <img src="p10.JPG" loading="lazy" alt="Memory 10">
+            </div>
+        </div>
+
+        <div class="glass-card">
+            <div class="img-wrapper">
+                <img src="p11.JPG" loading="lazy" alt="Memory 11">
+            </div>
+        </div>
+
+        <div class="glass-card">
+            <div class="img-wrapper">
+                <img src="p12.JPG" loading="lazy" alt="Memory 12">
+            </div>
+        </div>
+
+        <div class="glass-card">
+            <div class="img-wrapper">
+                <img src="p13.JPG" loading="lazy" alt="Memory 13">
+            </div>
+        </div>
+
+        <div class="glass-card">
+            <div class="img-wrapper">
+                <img src="p14.JPG" loading="lazy" alt="Memory 14">
+            </div>
+        </div>
+
+        <div class="glass-card">
+            <div class="img-wrapper">
+                <img src="p15.JPG" loading="lazy" alt="Memory 15">
+            </div>
+        </div>
+
+        <div class="glass-card">
+            <div class="img-wrapper">
+                <img src="p16.JPG" loading="lazy" alt="Memory 16">
+            </div>
+        </div>
+
+        <div class="glass-card">
+            <div class="img-wrapper">
+                <img src="p17.JPG" loading="lazy" alt="Memory 17">
+            </div>
+        </div>
+
+        <div class="glass-card">
+            <div class="img-wrapper">
+                <img src="p18.JPG" loading="lazy" alt="Memory 18">
+            </div>
+        </div>
+
+        <div class="glass-card">
+            <div class="img-wrapper">
+                <img src="p19.JPG" loading="lazy" alt="Memory 19">
+            </div>
+        </div>
+
+        <div class="glass-card">
+            <div class="img-wrapper">
+                <img src="p20.JPG" loading="lazy" alt="Memory 20">
+            </div>
+        </div>
+
     </div>
 
     <script>
-        // Only activate Book Flipping Logic on Desktop
-        if (window.matchMedia("(min-width: 768px)").matches) {
-            
-            const pages = document.querySelectorAll('.page');
-            const totalPages = pages.length;
+        document.addEventListener("DOMContentLoaded", function() {
+            // Select all glass cards
+            const cards = document.querySelectorAll('.glass-card');
 
-            // Z-Index Stacking
-            pages.forEach((page, index) => {
-                page.style.zIndex = totalPages - index;
-            });
+            // Setup Intersection Observer (This detects when a card is on screen)
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.4 // Triggers when 40% of the photo is visible
+            };
 
-            // Flip Interaction
-            pages.forEach((page, index) => {
-                page.addEventListener('click', function() {
-                    if (this.classList.contains('flipped')) {
-                        // Go Back
-                        this.classList.remove('flipped');
-                        setTimeout(() => {
-                            this.style.zIndex = totalPages - index;
-                        }, 500); 
+            const cardObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Add the 'in-view' class (This triggers the Color Reveal & Golden Glow)
+                        entry.target.classList.add('in-view');
                     } else {
-                        // Go Forward
-                        this.classList.add('flipped');
-                        this.style.zIndex = index + 1;
+                        // Optional: Remove class if you want them to turn B&W again when scrolling away
+                        // entry.target.classList.remove('in-view'); 
                     }
                 });
+            }, observerOptions);
+
+            // Start observing each card
+            cards.forEach(card => {
+                cardObserver.observe(card);
             });
-        }
+        });
     </script>
 </body>
 </html>
