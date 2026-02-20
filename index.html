@@ -3,47 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anjali & Hardik | Royal Green Memories</title>
+    <title>Anjali & Hardik | Starry Night Memories</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
     
     <style>
-        /* --- 1. ROYAL DARK GREEN & GOLD BACKGROUND --- */
+        /* --- 1. MIDNIGHT BLUE & STARRY BACKGROUND --- */
         body {
             margin: 0;
             padding: 0;
             font-family: 'Montserrat', sans-serif;
-            /* Deep Forest Green to Dark Olive Gradient */
-            background: linear-gradient(-45deg, #021a0c, #09361a, #1b2e10, #041f0f);
+            /* Deep Midnight Blue to Royal Navy Gradient */
+            background: linear-gradient(-45deg, #020617, #0f172a, #1e1b4b, #0a0f25);
             background-size: 400% 400%;
-            animation: royalBG 15s ease infinite;
+            animation: starryBG 15s ease infinite;
             color: #ffffff;
             overflow-x: hidden;
+            perspective: 1000px; /* Enables 3D Magic */
         }
 
-        @keyframes royalBG {
+        @keyframes starryBG {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
 
-        /* Floating Golden Particles */
+        /* Floating Diamond Particles */
         .particles {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background-image: radial-gradient(rgba(212, 175, 55, 0.15) 2px, transparent 2px); /* Gold Particles */
-            background-size: 60px 60px;
+            background-image: 
+                radial-gradient(rgba(255, 255, 255, 0.4) 1px, transparent 2px),
+                radial-gradient(rgba(253, 164, 175, 0.3) 1px, transparent 2px); /* Rose Gold Dust */
+            background-size: 50px 50px, 80px 80px;
+            background-position: 0 0, 25px 25px;
             pointer-events: none;
             z-index: 0;
-            animation: drift 40s linear infinite;
+            animation: floatUp 30s linear infinite;
         }
 
-        @keyframes drift {
-            0% { background-position: 0px 0px; }
-            100% { background-position: 600px 600px; }
+        @keyframes floatUp {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-100vh); }
         }
 
-        /* --- 2. GOLDEN HEADER --- */
+        /* --- 2. ROSE GOLD HEADER --- */
         .header {
             text-align: center;
             padding: 50px 20px 20px;
@@ -55,34 +59,43 @@
             font-family: 'Cinzel', serif;
             font-size: 3.2rem;
             margin: 0;
-            /* Bright Gold Text Effect */
-            background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+            /* Rose Gold Gradient Text */
+            background: linear-gradient(to right, #fecdd3, #fda4af, #ffe4e6, #fda4af, #fecdd3);
+            background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: shine 4s linear infinite;
-            text-shadow: 0px 4px 15px rgba(212, 175, 55, 0.2);
+            animation: shineText 4s linear infinite;
+            text-shadow: 0px 5px 15px rgba(253, 164, 175, 0.2);
         }
 
-        @keyframes shine {
-            0% { background-position: 0% center; }
-            100% { background-position: 200% center; }
+        @keyframes shineText {
+            to { background-position: 200% center; }
         }
 
         .header p {
-            letter-spacing: 4px;
+            letter-spacing: 5px;
             text-transform: uppercase;
             font-size: 0.9rem;
-            color: #d4af37; /* Gold Color */
+            color: #fda4af; /* Rose Gold */
             margin-top: 10px;
+            font-weight: 300;
         }
 
-        /* --- 3. GLASSMORPHISM TIMELINE (THE SURPRISE) --- */
+        .scroll-hint {
+            font-size: 0.75rem; 
+            color: #e2e8f0; 
+            margin-top: 30px; 
+            opacity: 0.7;
+            letter-spacing: 2px;
+        }
+
+        /* --- 3. 3D GLASSMORPHISM (THE SURPRISE MAGIC) --- */
         .gallery-container {
             display: flex;
             flex-direction: column;
             align-items: center;
             padding: 20px;
-            gap: 50px;
+            gap: 60px;
             position: relative;
             z-index: 10;
             max-width: 1200px;
@@ -92,26 +105,30 @@
 
         /* The Glass Card */
         .glass-card {
-            background: rgba(4, 30, 15, 0.4); /* Dark Green Tint */
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(212, 175, 55, 0.2); /* Subtle Gold Border */
+            background: rgba(15, 23, 42, 0.5); /* Navy Glass Tint */
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(253, 164, 175, 0.15); /* Faint Rose Gold Border */
             border-radius: 20px;
             padding: 15px;
             width: 90%;
             max-width: 500px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            transform: translateY(40px);
-            opacity: 0.4;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            
+            /* Initial State (Hidden & Tilted Back) */
+            opacity: 0.3;
+            transform: translateY(60px) rotateX(15deg) scale(0.9);
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Bouncy Magic Effect */
+            transform-style: preserve-3d;
         }
 
-        /* Golden Glowing effect when in center of screen */
+        /* Glowing effect when in center of screen */
         .glass-card.in-view {
-            transform: translateY(0) scale(1.02);
             opacity: 1;
-            border: 1px solid rgba(212, 175, 55, 0.9); /* Bright Gold Glow */
-            box-shadow: 0 0 35px rgba(212, 175, 55, 0.3), inset 0 0 15px rgba(212, 175, 55, 0.1);
+            /* Pop-out Effect */
+            transform: translateY(0) rotateX(0deg) scale(1);
+            border: 1px solid rgba(253, 164, 175, 0.8); /* Bright Rose Gold Border */
+            box-shadow: 0 0 40px rgba(253, 164, 175, 0.25), inset 0 0 20px rgba(253, 164, 175, 0.1);
         }
 
         /* The Image inside Glass */
@@ -120,7 +137,7 @@
             border-radius: 12px;
             overflow: hidden;
             position: relative;
-            background: #021a0c; /* Green loading placeholder */
+            background: #020617; 
             min-height: 250px;
         }
 
@@ -129,17 +146,17 @@
             height: 100%;
             object-fit: cover;
             display: block;
-            /* The Color Reveal Surprise */
-            filter: grayscale(100%) sepia(20%) brightness(0.6); /* Slight vintage dark look before reveal */
-            transition: all 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+            /* Initial state: Dark & B&W */
+            filter: grayscale(100%) brightness(0.5); 
+            transition: all 1.5s ease-out;
         }
 
         /* When photo comes into view, it turns to FULL COLOR */
         .glass-card.in-view img {
-            filter: grayscale(0%) sepia(0%) brightness(1.05); /* Extra bright when revealed */
+            filter: grayscale(0%) brightness(1.05); /* Bright and vivid */
         }
 
-        /* --- DESKTOP VIEW (MASONRY ZIG-ZAG) --- */
+        /* --- DESKTOP VIEW (ZIG-ZAG) --- */
         @media (min-width: 768px) {
             .gallery-container {
                 flex-direction: row;
@@ -147,14 +164,14 @@
                 justify-content: center;
             }
             .glass-card {
-                width: 40%; /* Two columns */
-                margin-top: 50px;
+                width: 42%;
+                margin-top: 40px;
             }
             .glass-card:nth-child(even) {
-                transform: translateY(80px); /* Zig Zag timeline effect */
+                transform: translateY(100px) rotateX(15deg) scale(0.9); 
             }
             .glass-card.in-view:nth-child(even) {
-                transform: translateY(50px) scale(1.05);
+                transform: translateY(60px) rotateX(0deg) scale(1);
             }
             .header h1 { font-size: 4.5rem; }
         }
@@ -166,158 +183,56 @@
 
     <div class="header">
         <h1>Anjali & Hardik</h1>
-        <p>A Royal Journey</p>
-        <p style="font-size: 0.75rem; color: #d4af37; margin-top: 25px; opacity: 0.8;">
-            <i class="fas fa-chevron-down" style="animation: bounce 2s infinite;"></i> Scroll Slowly to Reveal the Magic
+        <p>A Magical Beginning</p>
+        <p class="scroll-hint">
+            <i class="fas fa-arrow-down" style="animation: bounce 2s infinite; color: #fda4af;"></i> Scroll to Reveal the Magic
         </p>
     </div>
 
     <div class="gallery-container">
         
-        <div class="glass-card">
-            <div class="img-wrapper">
-                <img src="p1.JPG" loading="lazy" alt="Memory 1">
-            </div>
-        </div>
-
-        <div class="glass-card">
-            <div class="img-wrapper">
-                <img src="p2.JPG" loading="lazy" alt="Memory 2">
-            </div>
-        </div>
-
-        <div class="glass-card">
-            <div class="img-wrapper">
-                <img src="p3.JPG" loading="lazy" alt="Memory 3">
-            </div>
-        </div>
-
-        <div class="glass-card">
-            <div class="img-wrapper">
-                <img src="p4.JPG" loading="lazy" alt="Memory 4">
-            </div>
-        </div>
-
-        <div class="glass-card">
-            <div class="img-wrapper">
-                <img src="p5.JPG" loading="lazy" alt="Memory 5">
-            </div>
-        </div>
-
-        <div class="glass-card">
-            <div class="img-wrapper">
-                <img src="p6.JPG" loading="lazy" alt="Memory 6">
-            </div>
-        </div>
-
-        <div class="glass-card">
-            <div class="img-wrapper">
-                <img src="p7.JPG" loading="lazy" alt="Memory 7">
-            </div>
-        </div>
-
-        <div class="glass-card">
-            <div class="img-wrapper">
-                <img src="p8.JPG" loading="lazy" alt="Memory 8">
-            </div>
-        </div>
-
-        <div class="glass-card">
-            <div class="img-wrapper">
-                <img src="p9.JPG" loading="lazy" alt="Memory 9">
-            </div>
-        </div>
-
-        <div class="glass-card">
-            <div class="img-wrapper">
-                <img src="p10.JPG" loading="lazy" alt="Memory 10">
-            </div>
-        </div>
-
-        <div class="glass-card">
-            <div class="img-wrapper">
-                <img src="p11.JPG" loading="lazy" alt="Memory 11">
-            </div>
-        </div>
-
-        <div class="glass-card">
-            <div class="img-wrapper">
-                <img src="p12.JPG" loading="lazy" alt="Memory 12">
-            </div>
-        </div>
-
-        <div class="glass-card">
-            <div class="img-wrapper">
-                <img src="p13.JPG" loading="lazy" alt="Memory 13">
-            </div>
-        </div>
-
-        <div class="glass-card">
-            <div class="img-wrapper">
-                <img src="p14.JPG" loading="lazy" alt="Memory 14">
-            </div>
-        </div>
-
-        <div class="glass-card">
-            <div class="img-wrapper">
-                <img src="p15.JPG" loading="lazy" alt="Memory 15">
-            </div>
-        </div>
-
-        <div class="glass-card">
-            <div class="img-wrapper">
-                <img src="p16.JPG" loading="lazy" alt="Memory 16">
-            </div>
-        </div>
-
-        <div class="glass-card">
-            <div class="img-wrapper">
-                <img src="p17.JPG" loading="lazy" alt="Memory 17">
-            </div>
-        </div>
-
-        <div class="glass-card">
-            <div class="img-wrapper">
-                <img src="p18.JPG" loading="lazy" alt="Memory 18">
-            </div>
-        </div>
-
-        <div class="glass-card">
-            <div class="img-wrapper">
-                <img src="p19.JPG" loading="lazy" alt="Memory 19">
-            </div>
-        </div>
-
-        <div class="glass-card">
-            <div class="img-wrapper">
-                <img src="p20.JPG" loading="lazy" alt="Memory 20">
-            </div>
-        </div>
+        <div class="glass-card"><div class="img-wrapper"><img src="p1.JPG" loading="lazy" alt="Memory"></div></div>
+        <div class="glass-card"><div class="img-wrapper"><img src="p2.JPG" loading="lazy" alt="Memory"></div></div>
+        <div class="glass-card"><div class="img-wrapper"><img src="p3.JPG" loading="lazy" alt="Memory"></div></div>
+        <div class="glass-card"><div class="img-wrapper"><img src="p4.JPG" loading="lazy" alt="Memory"></div></div>
+        <div class="glass-card"><div class="img-wrapper"><img src="p5.JPG" loading="lazy" alt="Memory"></div></div>
+        <div class="glass-card"><div class="img-wrapper"><img src="p6.JPG" loading="lazy" alt="Memory"></div></div>
+        <div class="glass-card"><div class="img-wrapper"><img src="p7.JPG" loading="lazy" alt="Memory"></div></div>
+        <div class="glass-card"><div class="img-wrapper"><img src="p8.JPG" loading="lazy" alt="Memory"></div></div>
+        <div class="glass-card"><div class="img-wrapper"><img src="p9.JPG" loading="lazy" alt="Memory"></div></div>
+        <div class="glass-card"><div class="img-wrapper"><img src="p10.JPG" loading="lazy" alt="Memory"></div></div>
+        <div class="glass-card"><div class="img-wrapper"><img src="p11.JPG" loading="lazy" alt="Memory"></div></div>
+        <div class="glass-card"><div class="img-wrapper"><img src="p12.JPG" loading="lazy" alt="Memory"></div></div>
+        <div class="glass-card"><div class="img-wrapper"><img src="p13.JPG" loading="lazy" alt="Memory"></div></div>
+        <div class="glass-card"><div class="img-wrapper"><img src="p14.JPG" loading="lazy" alt="Memory"></div></div>
+        <div class="glass-card"><div class="img-wrapper"><img src="p15.JPG" loading="lazy" alt="Memory"></div></div>
+        <div class="glass-card"><div class="img-wrapper"><img src="p16.JPG" loading="lazy" alt="Memory"></div></div>
+        <div class="glass-card"><div class="img-wrapper"><img src="p17.JPG" loading="lazy" alt="Memory"></div></div>
+        <div class="glass-card"><div class="img-wrapper"><img src="p18.JPG" loading="lazy" alt="Memory"></div></div>
+        <div class="glass-card"><div class="img-wrapper"><img src="p19.JPG" loading="lazy" alt="Memory"></div></div>
+        <div class="glass-card"><div class="img-wrapper"><img src="p20.JPG" loading="lazy" alt="Memory"></div></div>
 
     </div>
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // Select all glass cards
             const cards = document.querySelectorAll('.glass-card');
 
-            // Setup Intersection Observer (This detects when a card is on screen)
             const observerOptions = {
                 root: null,
                 rootMargin: '0px',
-                threshold: 0.35 // Triggers when 35% of the photo is visible
+                threshold: 0.35 // Triggers when 35% of the card is visible
             };
 
             const cardObserver = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        // Add the 'in-view' class (Triggers Color Reveal & Gold Glow)
+                        // Adds the 'in-view' class which triggers the 3D Pop-out, Gold Glow, and Color Reveal
                         entry.target.classList.add('in-view');
                     }
                 });
             }, observerOptions);
 
-            // Start observing each card
             cards.forEach(card => {
                 cardObserver.observe(card);
             });
