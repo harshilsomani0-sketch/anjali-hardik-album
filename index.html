@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Our Wedding Memories</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <meta name="theme-color" content="#800000">
+
+<link rel="manifest" href="manifest.json">
+
+<meta name="mobile-web-app-capable" content="yes">
+</head>
+<body>
+
+    <div id="splash-screen">
+        <div class="splash-content">
+            <div class="animated-logo">A & R</div>
+            <h1 class="glow-text">Aditi & Rahul</h1>
+            <p>Welcome to our beautiful journey</p>
+            <button id="enter-btn">View Our Wedding Memories ❤️</button>
+        </div>
+    </div>
+
+    <button id="music-btn" class="floating-btn"><i class="fas fa-music"></i></button>
+    <button id="share-btn" class="floating-btn share-pos"><i class="fas fa-share-alt"></i></button>
+    <audio id="bg-music" loop>
+        <source src="assets/music/bgm.mp3" type="audio/mpeg">
+    </audio>
+
+    <main id="app-container" class="hidden">
+        
+        <header class="profile-header">
+            <div class="profile-pic">
+                <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=150&q=80" alt="Couple">
+            </div>
+            <div class="profile-stats">
+                <div class="stat"><b>100+</b><span>Posts</span></div>
+                <div class="stat"><b>♾️</b><span>Love</span></div>
+                <div class="stat"><b>1</b><span>Journey</span></div>
+            </div>
+            <div class="profile-bio">
+                <h2>Aditi & Rahul</h2>
+                <p>Two souls, one heart. ✨<br>Tied the knot: 25th Nov 2025 💍<br>📍 Udaipur, Rajasthan</p>
+            </div>
+        </header>
+
+        <div class="story-highlights">
+            <div class="story" onclick="openStory('engagement')">
+                <div class="story-ring"><img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=100&q=80" alt="Engagement"></div>
+                <span>💍 Engaged</span>
+            </div>
+            <div class="story" onclick="openStory('haldi')">
+                <div class="story-ring"><img src="https://images.unsplash.com/photo-1605337035541-0c538a0f8247?auto=format&fit=crop&w=100&q=80" alt="Haldi"></div>
+                <span>🌼 Haldi</span>
+            </div>
+            <div class="story" onclick="openStory('wedding')">
+                <div class="story-ring"><img src="https://images.unsplash.com/photo-1552589574-8898166c421f?auto=format&fit=crop&w=100&q=80" alt="Wedding"></div>
+                <span>🔥 Wedding</span>
+            </div>
+        </div>
+
+        <nav class="tabs">
+            <button class="tab-btn active" onclick="switchTab('feed')"><i class="fas fa-th"></i> Feed</button>
+            <button class="tab-btn" onclick="switchTab('reels')"><i class="fas fa-video"></i> Reels</button>
+            <button class="tab-btn" onclick="switchTab('wishes')"><i class="fas fa-comment-heart"></i> Wishes</button>
+        </nav>
+
+        <section id="feed" class="tab-content active">
+            <div class="masonry-grid">
+                <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=400&q=80" class="feed-item" alt="Wedding moment">
+                <img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=400&q=80" class="feed-item" alt="Engagement ring">
+                <img src="https://images.unsplash.com/photo-1605337035541-0c538a0f8247?auto=format&fit=crop&w=400&q=80" class="feed-item" alt="Haldi">
+            </div>
+        </section>
+
+        <section id="reels" class="tab-content hidden">
+            <div class="reels-container">
+                <div class="reel double-tap-like">
+                    <img src="https://images.unsplash.com/photo-1552589574-8898166c421f?auto=format&fit=crop&w=400&q=80" alt="Video Placeholder" class="video-placeholder">
+                    <div class="reel-overlay">
+                        <div class="reel-info">
+                            <h3>@aditi_rahul</h3>
+                            <p>The perfect entry ✨ #wedding</p>
+                        </div>
+                        <div class="reel-actions">
+                            <i class="fas fa-heart like-btn"></i>
+                            <i class="fas fa-comment"></i>
+                            <i class="fas fa-paper-plane"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="wishes" class="tab-content hidden">
+            <div class="comments-section">
+                <div class="comment-card glassmorphism">
+                    <b>Riya:</b> Beautiful couple ❤️ Wishing you a lifetime of happiness!
+                </div>
+                <div class="comment-card glassmorphism">
+                    <b>Karan:</b> That Haldi ceremony was lit! 🔥 Congratulations!
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <div id="story-modal" class="hidden">
+        <div class="story-progress-bar"><div class="progress-fill"></div></div>
+        <button id="close-story" onclick="closeStory()"><i class="fas fa-times"></i></button>
+        <img id="story-image" src="" alt="Story">
+    </div>
+
+    <div id="hearts-container"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>

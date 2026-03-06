@@ -1,0 +1,305 @@
+:root {
+    --royal-maroon: #800000;
+    --rose-gold: #b76e79;
+    --ivory: #fffff0;
+    --soft-pink: #ffd1dc;
+    --gold: #d4af37;
+    --text-dark: #333;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--ivory);
+    color: var(--text-dark);
+    overflow-x: hidden;
+}
+
+h1, h2, h3, .animated-logo {
+    font-family: 'Playfair Display', serif;
+}
+
+/* 🎬 Splash Screen */
+#splash-screen {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: linear-gradient(135deg, var(--royal-maroon), var(--rose-gold));
+    color: var(--ivory);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    transition: opacity 0.8s ease;
+}
+
+.splash-content {
+    text-align: center;
+}
+
+.animated-logo {
+    font-size: 4rem;
+    margin-bottom: 10px;
+    animation: float 3s ease-in-out infinite;
+}
+
+.glow-text {
+    font-size: 2.5rem;
+    color: var(--gold);
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.8);
+    margin-bottom: 20px;
+}
+
+#enter-btn {
+    background: var(--ivory);
+    color: var(--royal-maroon);
+    border: none;
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition: transform 0.2s;
+}
+
+#enter-btn:active { transform: scale(0.95); }
+
+/* 📱 Profile Header */
+.profile-header {
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.profile-pic img {
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    border: 3px solid var(--rose-gold);
+    object-fit: cover;
+}
+
+.profile-stats {
+    display: flex;
+    flex: 1;
+    justify-content: space-around;
+    text-align: center;
+}
+
+.profile-stats .stat b { display: block; font-size: 1.2rem; color: var(--royal-maroon); }
+.profile-stats .stat span { font-size: 0.8rem; color: #666; }
+
+.profile-bio {
+    width: 100%;
+    margin-top: 15px;
+}
+.profile-bio h2 { font-size: 1.2rem; color: var(--royal-maroon); }
+.profile-bio p { font-size: 0.9rem; line-height: 1.4; }
+
+/* 📸 Story Highlights */
+.story-highlights {
+    display: flex;
+    overflow-x: auto;
+    padding: 15px 10px;
+    gap: 15px;
+}
+.story-highlights::-webkit-scrollbar { display: none; }
+
+.story {
+    text-align: center;
+    cursor: pointer;
+}
+
+.story-ring {
+    width: 65px; height: 65px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, var(--gold), var(--rose-gold), var(--royal-maroon));
+    padding: 3px;
+    margin-bottom: 5px;
+}
+
+.story-ring img {
+    width: 100%; height: 100%;
+    border-radius: 50%;
+    border: 2px solid var(--ivory);
+    object-fit: cover;
+}
+
+.story span { font-size: 0.75rem; font-weight: 600; }
+
+/* 📑 Tabs */
+.tabs {
+    display: flex;
+    justify-content: space-around;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 12px 0;
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    color: #999;
+    cursor: pointer;
+}
+
+.tab-btn.active {
+    color: var(--royal-maroon);
+    border-bottom: 2px solid var(--royal-maroon);
+}
+
+.tab-content { display: none; }
+.tab-content.active { display: block; animation: fadeIn 0.4s ease; }
+.hidden { display: none !important; }
+
+/* 📖 Feed (Masonry) */
+.masonry-grid {
+    column-count: 2;
+    column-gap: 5px;
+    padding: 5px;
+}
+.feed-item {
+    width: 100%;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    display: block;
+}
+
+/* 🎥 Reels */
+.reels-container {
+    height: 70vh; /* Adjust based on your header height */
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+    background: #000;
+}
+.reels-container::-webkit-scrollbar { display: none; }
+
+.reel {
+    height: 100%;
+    width: 100%;
+    scroll-snap-align: start;
+    position: relative;
+    background: #111;
+}
+
+.video-placeholder {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    opacity: 0.8;
+}
+
+.reel-overlay {
+    position: absolute;
+    bottom: 20px;
+    left: 10px;
+    right: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    color: white;
+}
+
+.reel-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    font-size: 1.8rem;
+}
+
+/* 💌 Wishes */
+.comments-section { padding: 15px; }
+.glassmorphism {
+    background: rgba(255, 209, 220, 0.3);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.5);
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+/* 🔘 Floating Buttons */
+.floating-btn {
+    position: fixed;
+    bottom: 20px; right: 20px;
+    width: 50px; height: 50px;
+    background: var(--royal-maroon);
+    color: var(--ivory);
+    border-radius: 50%;
+    border: none;
+    font-size: 1.2rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    z-index: 100;
+    cursor: pointer;
+}
+.share-pos { right: 80px; background: var(--rose-gold); }
+
+/* ✨ Animations */
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+.floating-heart {
+    position: absolute;
+    color: var(--royal-maroon);
+    font-size: 2rem;
+    animation: floatUp 1.5s ease-out forwards;
+    pointer-events: none;
+    z-index: 999;
+}
+@keyframes floatUp {
+    0% { transform: translateY(0) scale(1); opacity: 1; }
+    100% { transform: translateY(-100px) scale(1.5); opacity: 0; }
+}
+
+/* Story Modal */
+#story-modal {
+    position: fixed;
+    top:0; left:0; width: 100vw; height: 100vh;
+    background: #000;
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+}
+#story-image {
+    width: 100%; height: 100%;
+    object-fit: contain;
+}
+.story-progress-bar {
+    position: absolute; top: 10px; left: 10px; right: 10px;
+    height: 3px; background: rgba(255,255,255,0.3);
+    border-radius: 3px;
+}
+.progress-fill {
+    height: 100%; width: 0%; background: white;
+    transition: width linear;
+}
+#close-story {
+    position: absolute; top: 20px; right: 20px;
+    background: none; border: none; color: white;
+    font-size: 2rem; cursor: pointer;
+}
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--ivory);
+    color: var(--text-dark);
+    overflow-x: hidden;
+    
+    /* 📱 ANDROID OPTIMIZATIONS */
+    overscroll-behavior-y: none; /* Stops Android pull-to-refresh */
+    touch-action: pan-y; /* Ensures smooth vertical scrolling */
+    -webkit-tap-highlight-color: transparent; /* Removes the ugly blue flash when tapping */
+}
