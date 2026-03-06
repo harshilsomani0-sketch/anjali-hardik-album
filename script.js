@@ -134,3 +134,97 @@ document.getElementById('share-btn').addEventListener('click', () => {
         navigator.clipboard.writeText(window.location.href);
     }
 });
+// 🔍 Fullscreen Image Viewer with Double-Tap & Pinch Zoom
+const feedImages = document.querySelectorAll('.feed-item');
+const viewerModal = document.getElementById('image-viewer-modal');
+const viewerImage = document.getElementById('viewer-image');
+const closeViewerBtn = document.getElementById('close-viewer');
+
+let currentScale = 1;
+let lastTapTime = 0;
+let initialPinchDistance = 0;
+
+// 1. Open image on tap
+feedImages.forEach(img => {
+    img.addEventListener('click', (e) => {
+        viewerImage.src = e.target.src;
+        viewerModal.classList.remove('hidden');
+        currentScale = 1; // Reset zoom when opening a new image
+        viewerImage.style.transform = `scale(${currentScale})`;
+    });
+});
+
+// 2. Close image viewer
+function closeViewer() {
+    viewerModal.classList.add('hidden');
+    setTimeout(() => { viewerImage.src = ''; }, 300); // Clear source after fade out
+}
+
+closeViewerBtn.addEventListener('click', closeViewer);
+
+// Close if user taps the black background
+viewerModal.addEventListener('click', (e) => {
+    if (e.target === viewerModal || e.target.classList.contains('viewer-container')) {
+        closeViewer();
+    }
+});
+
+// 3. Android Double-Tap to Zoom Logic
+viewerImage.addEventListener('touchstart', (e) => {
+    const currentTime = new Date().getTime();
+    const tapLength = currentTime - lastTapTime;
+    
+    // If tap is fast (under 300ms) and only 1 finger
+    if (tapLength < 300 && tapLength > 0 && e.touches.length === 1) {
+        if (currentScale === 1) {
+            currentScale = 2.5; // Zoom in 2.5x
+        } else {
+            currentScale = 1; // Zoom back out to fit screen
+        }
+        viewerImage.style.transform = `scale(${currentScale})`;
+        e.preventDefault(); 
+    }
+    lastTapTime = currentTime;
+});
+
+// 4. Android Pinch-to-Zoom Logic
+viewerImage.addEventListener('touchmove', (e) => {
+    if (e.touches.length === 2) {
+        e.preventDefault(); // Prevents the whole website from trying to scroll while pinching
+
+        const touch1 = e.touches[0];
+        const touch2 = e.touches[1];
+        
+        // Calculate the distance between two fingers using Pythagorean theorem
+        const distance = Math.hypot(
+            touch2.clientX - touch1.clientX, 
+            touch2.clientY - touch1.clientY
+        );
+        
+        if (initialPinchDistance === 0) {
+            initialPinchDistance = distance;
+        } else {
+            // Calculate how much the fingers moved apart
+            const scaleChange = distance / initialPinchDistance;
+            let newScale = currentScale * scaleChange;
+            
+            // Limit the zoom so they don't zoom out past the original size, or zoom in too far
+            if (newScale >= 1 && newScale <= 4) {
+                viewerImage.style.transform = `scale(${newScale})`;
+            }
+        }
+    }
+});
+
+viewerImage.addEventListener('touchend', (e) => {
+    if (e.touches.length < 2) {
+        initialPinchDistance = 0; // Reset pinch distance when fingers lift
+        
+        // Save the current scale for the next pinch or double-tap
+        const transformStr = viewerImage.style.transform;
+        if(transformStr.includes('scale')) {
+            const match = transformStr.match(/scale\(([^)]+)\)/);
+            if(match) currentScale = parseFloat(match[1]);
+        }
+    }
+});
