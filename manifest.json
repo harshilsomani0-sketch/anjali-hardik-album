@@ -1,6 +1,6 @@
 {
-  "name": "Aditi & Rahul Wedding Memories",
-  "short_name": "A&R Wedding",
+  "name": "Anjali & Hardik Wedding Memories",
+  "short_name": "A&H Wedding",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#fffff0",
@@ -18,4 +18,5 @@
       "type": "image/png"
     }
   ]
+
 }
