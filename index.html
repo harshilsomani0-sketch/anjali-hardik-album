@@ -17,8 +17,8 @@
 
     <div id="splash-screen">
         <div class="splash-content">
-            <div class="animated-logo">A & R</div>
-            <h1 class="glow-text">Aditi & Rahul</h1>
+            <div class="animated-logo">A & H</div>
+            <h1 class="glow-text">Anjali & Hardik</h1>
             <p>Welcome to our beautiful journey</p>
             <button id="enter-btn">View Our Wedding Memories ❤️</button>
         </div>
@@ -34,7 +34,7 @@
         
         <header class="profile-header">
             <div class="profile-pic">
-                <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=150&q=80" alt="Couple">
+                      <img src="p1.JPG" class="feed-item" alt="profile-pic">
             </div>
             <div class="profile-stats">
                 <div class="stat"><b>100+</b><span>Posts</span></div>
@@ -42,8 +42,8 @@
                 <div class="stat"><b>1</b><span>Journey</span></div>
             </div>
             <div class="profile-bio">
-                <h2>Aditi & Rahul</h2>
-                <p>Two souls, one heart. ✨<br>Tied the knot: 25th Nov 2025 💍<br>📍 Udaipur, Rajasthan</p>
+                <h2>Anjali & Hardik</h2>
+                <p>Two souls, one heart. ✨<br>Tied the knot: 13th Feb 2026 💍<br>📍 Bhavnagar, Gujarat</p>
             </div>
         </header>
 
@@ -65,16 +65,36 @@
         <nav class="tabs">
             <button class="tab-btn active" onclick="switchTab('feed')"><i class="fas fa-th"></i> Feed</button>
             <button class="tab-btn" onclick="switchTab('reels')"><i class="fas fa-video"></i> Reels</button>
-            <button class="tab-btn" onclick="switchTab('wishes')"><i class="fas fa-comment-heart"></i> Wishes</button>
+           
         </nav>
 
         <section id="feed" class="tab-content active">
-            <div class="masonry-grid">
-                <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=400&q=80" class="feed-item" alt="Wedding moment">
-                <img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=400&q=80" class="feed-item" alt="Engagement ring">
-                <img src="https://images.unsplash.com/photo-1605337035541-0c538a0f8247?auto=format&fit=crop&w=400&q=80" class="feed-item" alt="Haldi">
-            </div>
-        </section>
+    <div class="masonry-grid">
+        <img src="assets/images/p1.JPG" class="feed-item" alt="Bride moments">
+        <img src="assets/images/p2.JPG" class="feed-item" alt="Groom moments">
+        <img src="assets/images/p3.JPG" class="feed-item" alt="Family">
+        <img src="assets/images/p4.JPG" class="feed-item" alt="Candid">
+        <img src="assets/images/p5.JPG" class="feed-item" alt="Haldi fun">
+         <img src="assets/images/p6.JPG" class="feed-item" alt="Haldi fun">
+          <img src="assets/images/p7.JPG" class="feed-item" alt="Haldi fun">
+           <img src="assets/images/p8.JPG" class="feed-item" alt="Haldi fun">
+            <img src="assets/images/p9.JPG" class="feed-item" alt="Haldi fun">
+             <img src="assets/images/p10.JPG" class="feed-item" alt="Haldi fun">
+              <img src="assets/images/p11.JPG" class="feed-item" alt="Haldi fun">
+               <img src="assets/images/p12.JPG" class="feed-item" alt="Haldi fun">
+                <img src="assets/images/p13.JPG" class="feed-item" alt="Haldi fun">
+                 <img src="assets/images/p14.JPG" class="feed-item" alt="Haldi fun">
+                 <img src="assets/images/p15.JPG" class="feed-item" alt="Haldi fun">
+                
+    </div>
+</section>
+
+<div id="image-viewer-modal" class="hidden">
+    <button id="close-viewer"><i class="fas fa-arrow-left"></i></button>
+    <div class="viewer-container">
+        <img id="viewer-image" src="" alt="Full Screen">
+    </div>
+</div>
 
         <section id="reels" class="tab-content hidden">
             <div class="reels-container">
@@ -95,16 +115,7 @@
             </div>
         </section>
 
-        <section id="wishes" class="tab-content hidden">
-            <div class="comments-section">
-                <div class="comment-card glassmorphism">
-                    <b>Riya:</b> Beautiful couple ❤️ Wishing you a lifetime of happiness!
-                </div>
-                <div class="comment-card glassmorphism">
-                    <b>Karan:</b> That Haldi ceremony was lit! 🔥 Congratulations!
-                </div>
-            </div>
-        </section>
+        
 
     </main>
 
